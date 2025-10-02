@@ -1,0 +1,177 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attractive Interactive Vertical Timeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #fff9f2;              
+    --line: #e5cda7;            
+    --line-glow: rgba(229,205,167,0.4); 
+    --card-bg: rgba(255,255,255,0.8);  
+    --card-border: rgba(0,0,0,0.05); 
+    --accent: #d4a373;          
+    --muted: #7b6d5c;           
+    --radius: 16px;
+    --max-width: 720px;
+    --gap: 36px;
+    --transition: .4s cubic-bezier(.2,.9,.3,1);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter,sans-serif;
+    background:linear-gradient(180deg,#fff9f2 0%,#f7f1e6 100%);
+    color:#5a4b3c;  
+    display:flex;
+    justify-content:center;
+    padding:60px 20px;
+  }
+  .timeline-wrap{width:100%;max-width:var(--max-width);position:relative}
+  .timeline-header{margin-bottom:28px;text-align:center}
+  .timeline-header h1{font-size:28px;margin:0 0 4px}
+  .timeline-header p{color:var(--muted);font-size:14px;margin:0}
+
+  .line{position:absolute;left:36px;top:0;bottom:0;width:6px;background:linear-gradient(to bottom,var(--line),transparent 80%);box-shadow:0 0 12px var(--line-glow);border-radius:3px;}
+
+  ul.timeline{list-style:none;padding:0;margin:0;padding-left:84px;display:grid;gap:var(--gap)}
+  .item{position:relative;backdrop-filter:blur(8px);background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px 20px 24px 24px;box-shadow:0 6px 20px rgba(0,0,0,0.05);display:grid;gap:12px;transition:transform var(--transition),box-shadow var(--transition);overflow:hidden;opacity:0;transform:translateY(36px) scale(0.98)}
+  .item.visible{opacity:1;transform:translateY(0) scale(1)}
+
+  .item:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 12px 36px rgba(0,0,0,0.1)}
+
+  .bullet{position:absolute;left:-68px;top:24px;width:56px;height:56px;border-radius:50%;background:linear-gradient(145deg,#f0d8b8,#d4a373);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.1);transition:transform var(--transition)}
+  .bullet .dot{width:16px;height:16px;border-radius:50%;background:white;box-shadow:0 0 12px rgba(212,163,115,0.4)}
+
+  .item:hover .bullet{transform:scale(1.15) rotate(-10deg)}
+
+  .meta{color:var(--muted);font-size:13px;font-weight:500}
+  .title{font-weight:700;font-size:18px;margin:4px 0 8px}
+  .desc{color:#5a4b3ccc;font-size:14px;margin:0}
+
+  .details{margin-top:12px;display:none;color:#5a4b3c;font-size:14px;line-height:1.4;transition:max-height .3s ease;overflow:hidden}
+  .item.expanded .details{display:block}
+
+  .controls{display:flex;gap:10px;align-items:center;margin-top:6px}
+  .btn{background:transparent;border:1px solid rgba(0,0,0,0.08);padding:6px 10px;border-radius:10px;color:var(--muted);cursor:pointer;font-size:13px;transition:all .2s}
+  .btn:hover{color:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent)}
+</style>
+</head>
+<body>
+<div class="timeline-wrap">
+  <div class="line" aria-hidden="true"></div>
+  <div class="timeline-header">
+    <h1>Timeline</h1>
+    <p>Click on the "details" button in the boxes to show details</p>
+  </div>
+  <ul class="timeline">
+    <li class="item" tabindex="0" data-date="1918-07-18">
+      <div class="bullet"><span class="dot"></span></div>
+      <div class="meta">July 18, 1918</div>
+      <div class="title">Birth</div>
+      <div class="details">
+        <p> Nelson Mandela was born in the small village of Mvezo, South Africa into the royal Thembu family of the Xhosa-speaking people. <p>
+      </div>
+      <div class="controls">
+        <button class="btn toggle" aria-expanded="false">Details</button>
+      </div>
+    </li>
+    <li class="item" tabindex="0" data-date="1944-09-10">
+      <div class="bullet"><span class="dot"></span></div>
+      <div class="meta">September 10, 1944</div>
+      <div class="title">Co-founds the African National Congress Youth League (ANCYL)</div>
+      <div class="details">
+       <p> Mandela, along with Walter Sisulu, Oliver Tambo, and Anton Lembede, co-founded the Africn National Congress Youth League (ANCYL) in 1944. Their goal was to radicalize the struggle, pushing the ANC toward protests, boycotts, strikes, and civil disobedience instead of just polite appeals to government. </p>
+      </div>
+      <div class="controls">
+        <button class="btn toggle" aria-expanded="false">Details</button>
+      </div>
+    </li>
+    <li class="item" tabindex="0" data-date="1962-08-5">
+      <div class="bullet"><span class="dot"></span></div>
+      <div class="meta">August 5, 1962</div>
+      <div class="title">Arrested, start of 27 years in prison</div>
+      <div class="details">
+        Nelson Mandela was arrested for leaving South Africa without permission and for encouraging workers’ strikes. Later, in the  Rivonia Trial in 1964, he and other ANCYL leaders were charged with sabotage due to them plotting to overthrow the racist system. Unexpectedly, Mandela was sentenced to life in prison instead of being executed. </p>
+      </div>
+      <div class="controls">
+        <button class="btn toggle" aria-expanded="false">Details</button>
+      </div>
+    </li>
+    <li class="item" tabindex="0" data-date="1990-02-11">
+      <div class="bullet"><span class="dot"></span></div>
+      <div class="meta">February 11, 1990</div>
+      <div class="title">Released from jail</div>
+      <div class="details">
+        In 1989, F.W. de Klerk became South Africa’s president. He knew apartheid was unsustainable and had to end, so he chose to negotiate with Mandela and release him from prison instead of fighting endlessly. </p>
+      </div>
+      <div class="controls">
+        <button class="btn toggle" aria-expanded="false">Details</button>
+      </div>
+    </li>
+    <li class="item" tabindex="0" data-date="1992-10-16">
+      <div class="bullet"><span class="dot"></span></div>
+      <div class="meta">October 16, 1993</div>
+      <div class="title">Wins the Nobel Peace Prize</div>
+      <div class="details">
+       <p> As a result of his efforts to peacfully end apartheid, Mandela won the Nobel Peace Prize in 1993 alongside F.W. De Klerk. </p>
+      </div>
+      <div class="controls">
+        <button class="btn toggle" aria-expanded="false">Details</button>
+      </div>
+    </li>
+    <li class="item" tabindex="0" data-date="1994-05-10">
+      <div class="bullet"><span class="dot"></span></div>
+      <div class="meta">May 10, 1994</div>
+      <div class="title">Becomes South Africa’s first Black President</div>
+      <div class="details">
+      <p> Mandela’s election ended decades of apartheid, the system of racial discrimination enforced by the corrupt government. </p>
+      </div>
+      <div class="controls">
+        <button class="btn toggle" aria-expanded="false">Details</button>
+      </div>
+    </li>
+    <li class="item" tabindex="0" data-date="2013-12-05">
+      <div class="bullet"><span class="dot"></span></div>
+      <div class="meta">Dec 5, 2013</div>
+      <div class="title">Passes away, remembered as a global symbol of peace</div>
+      <div class="details">
+        <p> This marked the end of Mandela's life of non-stop fighting against racial injustice. His life remains a lasting symbol of resilience, moral courage, and the pursuit of equality, inspiring generations worldwide. </p>
+      </div>
+      <div class="controls">
+        <button class="btn toggle" aria-expanded="false">Details</button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<script>
+// Toggle details
+document.querySelectorAll('.timeline .toggle').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item = btn.closest('.item');
+    const expanded = item.classList.toggle('expanded');
+    btn.setAttribute('aria-expanded',expanded);
+  });
+});
+// Reveal on scroll
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.15});
+document.querySelectorAll('.timeline .item').forEach(i=>observer.observe(i));
+// Keyboard navigation (Enter/Space toggle)
+document.querySelectorAll('.timeline .item').forEach(item=>{
+  item.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      const btn = item.querySelector('.toggle');
+      btn.click();
+    }
+  });
+});
+</script>
+</body>
+</html>
